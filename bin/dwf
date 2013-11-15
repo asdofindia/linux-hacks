@@ -1,6 +1,11 @@
 #!/bin/sh -x
 # dwf, aka "Done With Feature" script: deletes current branch and puts you back on master
-ref=$(git symbolic-ref HEAD >> /dev/null) || exit 0
-CURRENT="${ref#refs/heads/}"
+
+# useless two lines that I don't understand
+# ref=$(git symbolic-ref HEAD >> /dev/null) || exit 0
+# CURRENT="${ref#refs/heads/}"
+
+# replacement one line
+CURRENT=`git branch | grep '\*' | awk '{print $2}'`
 git checkout master
 git branch -d ${CURRENT}

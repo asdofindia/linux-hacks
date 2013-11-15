@@ -1,7 +1,12 @@
 #!/bin/sh -x
 # hack: Merge the latest changes from the master branch into your current branch
-ref=$(git symbolic-ref HEAD >> /dev/null) || exit 0
-CURRENT="${ref#refs/heads/}"
+
+# these lines aren't switching branches
+# ref=$(git symbolic-ref HEAD >> /dev/null) || exit 0
+# CURRENT="${ref#refs/heads/}"
+
+#copy from http://reinh.com/blog/2008/08/27/hack-and-and-ship.html
+CURRENT=`git branch | grep '\*' | awk '{print $2}'`
 git checkout master
 git pull origin master
 git checkout ${CURRENT}
